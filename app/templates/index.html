@@ -1,0 +1,94 @@
+﻿<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sensus</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <p class="eyebrow">Instagram Analytics</p>
+      <h1>Sensus</h1>
+    </div>
+    <div class="status" id="api-status">API</div>
+  </header>
+
+  <main class="layout">
+    <section class="panel auth-panel" aria-label="Acesso">
+      <div class="tabs" role="tablist">
+        <button class="tab active" id="login-tab" type="button">Entrar</button>
+        <button class="tab" id="signup-tab" type="button">Criar conta</button>
+      </div>
+
+      <form id="login-form" class="form stack">
+        <label>Email<input id="login-email" type="email" autocomplete="email" required></label>
+        <label>Senha<input id="login-password" type="password" autocomplete="current-password" required></label>
+        <button class="primary" type="submit">Entrar</button>
+      </form>
+
+      <form id="signup-form" class="form stack hidden">
+        <label>Nome<input id="signup-name" type="text" autocomplete="name"></label>
+        <label>Usuario<input id="signup-username" type="text" autocomplete="username" required></label>
+        <label>Email<input id="signup-email" type="email" autocomplete="email" required></label>
+        <label>Senha<input id="signup-password" type="password" autocomplete="new-password" required></label>
+        <button class="primary" type="submit">Criar conta</button>
+      </form>
+
+      <button class="secondary full" id="demo-button" type="button">Carregar demo local</button>
+      <p class="message" id="message"></p>
+    </section>
+
+    <section class="workspace">
+      <div class="summary-grid">
+        <article class="metric">
+          <span>Contas</span>
+          <strong id="metric-accounts">0</strong>
+        </article>
+        <article class="metric">
+          <span>Posts</span>
+          <strong id="metric-posts">0</strong>
+        </article>
+        <article class="metric">
+          <span>Engajamento</span>
+          <strong id="metric-engagement">0%</strong>
+        </article>
+        <article class="metric">
+          <span>Sentimento</span>
+          <strong id="metric-sentiment">-</strong>
+        </article>
+      </div>
+
+      <section class="panel account-panel" aria-label="Contas monitoradas">
+        <div class="panel-heading">
+          <h2>Contas monitoradas</h2>
+          <form id="account-form" class="inline-form">
+            <input id="account-username" type="text" placeholder="usuario_instagram" required>
+            <button type="submit">Adicionar</button>
+          </form>
+        </div>
+        <div class="account-list" id="account-list"></div>
+      </section>
+
+      <section class="content-grid">
+        <article class="panel">
+          <h2>Analytics</h2>
+          <div class="sentiment-bars" id="sentiment-bars">
+            <div class="empty">Selecione uma conta</div>
+          </div>
+        </article>
+
+        <article class="panel">
+          <h2>Posts recentes</h2>
+          <div class="post-list" id="post-list">
+            <div class="empty">Nenhum post carregado</div>
+          </div>
+        </article>
+      </section>
+    </section>
+  </main>
+
+  <script src="{{ url_for('static', filename='js/main.js') }}" defer></script>
+</body>
+</html>

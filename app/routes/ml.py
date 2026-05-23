@@ -1,7 +1,7 @@
-from flask import request, jsonify
+﻿from flask import request, jsonify
 from app.routes import api_bp
 from app.models import db, MLExperiment
-from datetime import datetime
+from app.utils.time import utcnow
 
 
 @api_bp.route('/ml/experiments', methods=['GET'])
@@ -25,7 +25,7 @@ def list_experiments():
 @api_bp.route('/ml/train', methods=['POST'])
 def create_experiment():
     data = request.get_json() or {}
-    name = data.get('name', f"run-{int(datetime.utcnow().timestamp())}")
+    name = data.get('name', f"run-{int(utcnow().timestamp())}")
     exp = MLExperiment(
         name=name,
         description=data.get('description', ''),

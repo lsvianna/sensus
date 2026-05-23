@@ -1,8 +1,8 @@
-import os
+﻿import os
 import requests
 import logging
 from typing import Dict, List, Optional
-from datetime import datetime
+from app.utils.time import utcnow
 
 logger = logging.getLogger(__name__)
 
@@ -52,7 +52,7 @@ class InstagramService:
                     'media_url': f'https://via.placeholder.com/400',
                     'likes_count': 100 + i * 10,
                     'comments_count': 10 + i,
-                    'timestamp': datetime.utcnow().isoformat()
+                    'timestamp': utcnow().isoformat()
                 }
                 for i in range(limit)
             ]
@@ -73,7 +73,7 @@ class InstagramService:
                     'text': f'Great content! Comment {i}',
                     'username': f'user_{i}',
                     'likes_count': i,
-                    'timestamp': datetime.utcnow().isoformat()
+                    'timestamp': utcnow().isoformat()
                 }
                 for i in range(limit)
             ]

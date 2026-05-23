@@ -1,9 +1,9 @@
-from typing import List
+﻿from typing import List
 import logging
 from app.services.sentiment_service import SentimentService
 from app.services.instagram_service import InstagramService
 from app.models import db, Post, Comment, Analysis
-from datetime import datetime
+from app.utils.time import utcnow
 
 logger = logging.getLogger(__name__)
 
@@ -69,7 +69,7 @@ class AnalysisService:
             else:
                 post.sentiment_label = 'neutral'
 
-            post.fetched_at = datetime.utcnow()
+            post.fetched_at = utcnow()
 
             db.session.add(post)
             db.session.commit()

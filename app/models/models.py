@@ -1,8 +1,8 @@
-from datetime import datetime
-from app.models import db
+﻿from app.models import db
+from app.utils.time import utcnow
 
 class User(db.Model):
-    """Usuário da plataforma"""
+    """UsuÃ¡rio da plataforma"""
     __tablename__ = 'users'
     
     id = db.Column(db.Integer, primary_key=True)
@@ -11,8 +11,8 @@ class User(db.Model):
     password_hash = db.Column(db.String(255), nullable=False)
     full_name = db.Column(db.String(120))
     plan = db.Column(db.String(20), default='free')  # free, pro, enterprise
-    created_at = db.Column(db.DateTime, default=datetime.utcnow, index=True)
-    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    created_at = db.Column(db.DateTime, default=utcnow, index=True)
+    updated_at = db.Column(db.DateTime, default=utcnow, onupdate=utcnow)
     
     # Relationships
     accounts = db.relationship('InstagramAccount', back_populates='user', cascade='all, delete-orphan')
@@ -35,7 +35,7 @@ class InstagramAccount(db.Model):
     followers_count = db.Column(db.Integer, default=0)
     following_count = db.Column(db.Integer, default=0)
     last_sync = db.Column(db.DateTime)
-    created_at = db.Column(db.DateTime, default=datetime.utcnow, index=True)
+    created_at = db.Column(db.DateTime, default=utcnow, index=True)
     
     # Relationships
     user = db.relationship('User', back_populates='accounts')
@@ -61,8 +61,8 @@ class Post(db.Model):
     sentiment_score = db.Column(db.Float)  # -1 a 1
     sentiment_label = db.Column(db.String(20))  # positive, negative, neutral
     posted_at = db.Column(db.DateTime, nullable=False, index=True)
-    fetched_at = db.Column(db.DateTime, default=datetime.utcnow)
-    created_at = db.Column(db.DateTime, default=datetime.utcnow, index=True)
+    fetched_at = db.Column(db.DateTime, default=utcnow)
+    created_at = db.Column(db.DateTime, default=utcnow, index=True)
     
     # Relationships
     account = db.relationship('InstagramAccount', back_populates='posts')
@@ -74,7 +74,7 @@ class Post(db.Model):
 
 
 class Comment(db.Model):
-    """Comentário em um post"""
+    """ComentÃ¡rio em um post"""
     __tablename__ = 'comments'
     
     id = db.Column(db.Integer, primary_key=True)
@@ -86,7 +86,7 @@ class Comment(db.Model):
     sentiment_score = db.Column(db.Float)  # -1 a 1
     sentiment_label = db.Column(db.String(20))  # positive, negative, neutral
     created_at = db.Column(db.DateTime, nullable=False, index=True)
-    fetched_at = db.Column(db.DateTime, default=datetime.utcnow)
+    fetched_at = db.Column(db.DateTime, default=utcnow)
     
     # Relationships
     post = db.relationship('Post', back_populates='comments')
@@ -96,7 +96,7 @@ class Comment(db.Model):
 
 
 class Analysis(db.Model):
-    """Análise agregada de um post"""
+    """AnÃ¡lise agregada de um post"""
     __tablename__ = 'analysis'
     
     id = db.Column(db.Integer, primary_key=True)
@@ -110,8 +110,8 @@ class Analysis(db.Model):
     hashtags = db.Column(db.JSON)
     mentions = db.Column(db.JSON)
     top_keywords = db.Column(db.JSON)
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
-    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    created_at = db.Column(db.DateTime, default=utcnow)
+    updated_at = db.Column(db.DateTime, default=utcnow, onupdate=utcnow)
     
     # Relationships
     post = db.relationship('Post', back_populates='analysis')
@@ -130,8 +130,8 @@ class MLExperiment(db.Model):
     params = db.Column(db.JSON)
     metrics = db.Column(db.JSON)
     status = db.Column(db.String(30), default='pending')
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
-    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    created_at = db.Column(db.DateTime, default=utcnow)
+    updated_at = db.Column(db.DateTime, default=utcnow, onupdate=utcnow)
 
     def __repr__(self):
         return f'<MLExperiment {self.name}>'

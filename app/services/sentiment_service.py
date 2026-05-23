@@ -1,8 +1,7 @@
-import logging
+﻿import logging
 import re
 from typing import Dict, Tuple, List
 from textblob import TextBlob
-import numpy as np
 
 logger = logging.getLogger(__name__)
 
@@ -120,7 +119,7 @@ class SentimentService:
             negative = len([r for r in results if r['label'] == 'negative'])
             neutral = len([r for r in results if r['label'] == 'neutral'])
             
-            avg_sentiment = np.mean([r['score'] for r in results]) if results else 0.0
+            avg_sentiment = sum(r['score'] for r in results) / len(results) if results else 0.0
             
             return {
                 'total': len(results),
